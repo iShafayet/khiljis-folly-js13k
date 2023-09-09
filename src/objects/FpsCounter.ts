@@ -6,7 +6,7 @@ export class FpsCounter {
   constructor(game: Game) {
     this.game = game;
   }
-  
+
   lastTimeStamp = Date.now();
   frameCount = 0;
   fps = 0;
@@ -20,9 +20,9 @@ export class FpsCounter {
       this.frameCount += 1;
     }
 
-    let text = `${this.fps}`.padStart(2, "0");
-    ctx.font = "normal 24px Arial";
-    ctx.fillStyle = "yellow"
-    ctx.fillText(text, CANVAS_BASE_WIDTH - 40, 30);
+    let text = `${this.fps}`.padStart(2, "0") + " FPS";
+    ctx.font = "normal 12px Arial";
+    ctx.fillStyle = "yellow";
+    ctx.fillText(text, CANVAS_BASE_WIDTH - 40 - 20, 30);
   }
 }

@@ -38,7 +38,7 @@ export class TrajectoryVisualizer {
   }
 
   private drawPoint(ctx, x, y) {
-    ctx.strokeStyle = "rgba(50, 238, 121, 0.74)";
+    ctx.strokeStyle = "rgba(33, 25, 19, 0.93)";
     ctx.beginPath();
     let tempRadious = 2;
     ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);

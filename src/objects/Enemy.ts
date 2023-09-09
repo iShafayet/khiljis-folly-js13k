@@ -1,3 +1,4 @@
+import { CANVAS_BASE_WIDTH } from "../constants";
 import { EnemyType } from "./EnemyType";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
@@ -13,6 +14,10 @@ export class Enemy {
   y: number;
 
   SPEED_FACTOR: number = 0.25;
+
+  hitboxRadious: number = 6;
+
+  isActive: boolean;
 
   constructor(game: Game, type: EnemyType) {
     this.game = game;
@@ -31,6 +36,8 @@ export class Enemy {
 
     this.x = 30;
     this.y = 670;
+
+    this.isActive = true;
   }
 
   updateState() {
@@ -38,10 +45,20 @@ export class Enemy {
       return;
     }
 
+    if (this.x > CANVAS_BASE_WIDTH - 30){
+      this.isActive = false;
+      this.game.lifeKeeper.reduceLife();
+      this.game.cleanupService.registerEnemyForCleanup(this);
+    }
+
     this.x += this.speed * this.SPEED_FACTOR;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    if (!this.isActive){
+      return;
+    }
+
     if (this.type == EnemyType.BASIC) {
       ctx.strokeStyle = "red";
     }

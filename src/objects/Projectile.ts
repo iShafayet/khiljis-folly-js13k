@@ -1,4 +1,5 @@
-import { BASIC_PROJECTILE_VELOCITY, GRAVITY } from "../constants";
+import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY } from "../constants";
+import { doCirclesCollide } from "../math";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
 import { ProjectileType } from "./ProjectileType";
@@ -21,6 +22,10 @@ export class Projectile {
   initAngle: number;
   velocityX: number;
   velocityY: number;
+
+  isActive: boolean;
+
+  hitboxRadious: number = 12;
 
   constructor(game: Game, type: ProjectileType) {
     this.game = game;
@@ -46,6 +51,8 @@ export class Projectile {
 
     this.x = this.initX;
     this.y = this.initY;
+
+    this.isActive = true;
   }
 
   updateState() {
@@ -58,9 +65,50 @@ export class Projectile {
     this.x = this.x - this.velocityX * inc;
     this.y = this.y + this.velocityY * inc;
     this.velocityY = this.velocityY + GRAVITY * inc * 0.1;
+
+    if (this.isActive) {
+      if (this.y > CANVAS_BASE_HEIGHT) {
+        this.isActive = false;
+        this.game.cleanupService.registerProjectileForCleanup(this);
+      }
+
+      this.detectCollision();
+    }
+  }
+
+  private detectCollision() {
+    let enemyList = this.game.enemyList;
+    for (let enemy of enemyList) {
+      let doCollides = doCirclesCollide(this.x, this.y, this.hitboxRadious, enemy.x, enemy.y, enemy.hitboxRadious);
+      if (!doCollides) {
+        continue;
+      }
+
+      this.game.scoreKeeper.awardScore(100);
+      this.isActive = false;
+      this.game.cleanupService.registerProjectileForCleanup(this);
+
+      enemy.health -= this.damage;
+      if (enemy.health <= 0) {
+        enemy.isActive = false;
+        this.game.cleanupService.registerEnemyForCleanup(enemy);
+      }
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    if (this.game.state !== GameState.STARTED) {
+      return;
+    }
+
+    if (!this.isActive) {
+      return;
+    }
+
+    if (this.y > CANVAS_BASE_HEIGHT - 30) {
+      return;
+    }
+
     if (this.type == ProjectileType.BASIC) {
       ctx.strokeStyle = "red";
     }

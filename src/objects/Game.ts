@@ -1,16 +1,19 @@
 import { InputState } from "../InputState";
 import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
 import { Backdrop } from "./Backdrop";
+import { CleanupService } from "./CleanupService";
 import { Enemy } from "./Enemy";
 import { EnemyFactory } from "./EnemyFactory";
 import { EnemyType } from "./EnemyType";
 import { FpsCounter } from "./FpsCounter";
 import { GameState } from "./GameState";
 import { Hill } from "./Hill";
+import { LifeKeeper } from "./LifeKeeper";
 import { PlayerCharacter } from "./PlayerCharacter";
 import { Projectile } from "./Projectile";
 import { ProjectileFactory } from "./ProjectileFactory";
 import { Road } from "./Road";
+import { ScoreKeeper } from "./ScoreKeeper";
 import { TrajectoryVisualizer } from "./TrajectoryVisualizer";
 
 export class Game {
@@ -25,6 +28,9 @@ export class Game {
   projectileFactory: ProjectileFactory;
   projectileList: Projectile[];
   backdrop: Backdrop;
+  scoreKeeper: ScoreKeeper;
+  lifeKeeper: LifeKeeper;
+  cleanupService: CleanupService;
 
   time: number;
   trajectoryVisualizer: TrajectoryVisualizer;
@@ -40,6 +46,9 @@ export class Game {
     this.pc = new PlayerCharacter(this);
     this.trajectoryVisualizer = new TrajectoryVisualizer(this);
     this.projectileFactory = new ProjectileFactory(this);
+    this.scoreKeeper = new ScoreKeeper(this);
+    this.cleanupService = new CleanupService(this);
+    this.lifeKeeper = new LifeKeeper(this);
 
     this.enemyList = [];
     this.projectileList = [];
@@ -73,6 +82,8 @@ export class Game {
     this.projectileList.forEach((projectile: Projectile) => {
       projectile.updateState();
     });
+
+    this.cleanupService.updateState();
   }
 
   public draw(ctx: CanvasRenderingContext2D) {
@@ -93,6 +104,9 @@ export class Game {
     this.projectileList.forEach((projectile: Projectile) => {
       projectile.draw(ctx);
     });
+
+    this.scoreKeeper.draw(ctx);
+    this.lifeKeeper.draw(ctx);
 
     this.fpsCounter.draw(ctx);
   }
