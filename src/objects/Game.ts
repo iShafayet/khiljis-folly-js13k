@@ -8,6 +8,7 @@ import { GameState } from "./GameState";
 import { Hill } from "./Hill";
 import { PlayerCharacter } from "./PlayerCharacter";
 import { Road } from "./Road";
+import { TrajectoryVisualizer } from "./TrajectoryVisualizer";
 
 export class Game {
   state = GameState.IDLE;
@@ -20,6 +21,7 @@ export class Game {
   enemyList: Enemy[];
 
   time: number;
+  trajectoryVisualizer: TrajectoryVisualizer;
 
   public initialize() {
     this.updateTime();
@@ -29,7 +31,10 @@ export class Game {
     this.hill = new Hill(this);
     this.road = new Road(this);
     this.pc = new PlayerCharacter(this);
+    this.trajectoryVisualizer = new TrajectoryVisualizer(this);
+
     this.pc.initialize();
+
     this.enemyList = [];
   }
 
@@ -63,6 +68,8 @@ export class Game {
     this.enemyList.forEach((enemy: Enemy) => {
       enemy.draw(ctx);
     });
+
+    this.trajectoryVisualizer.draw(ctx);
 
     this.fpsCounter.draw(ctx);
   }

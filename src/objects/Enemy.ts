@@ -12,8 +12,9 @@ export class Enemy {
   x: number;
   y: number;
 
+  SPEED_FACTOR: number = 0.25;
+
   constructor(game: Game, type: EnemyType) {
-    console.log(type)
     this.game = game;
 
     this.type = type;
@@ -37,7 +38,7 @@ export class Enemy {
       return;
     }
 
-    this.x += this.speed;
+    this.x += this.speed * this.SPEED_FACTOR;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
