@@ -1,26 +1,17 @@
-import croissantImage from "../assets/croissant.png";
-import { clamp } from "./math";
+import { InputState } from "./InputState";
+import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "./constants";
+
+import { Game } from "./objects/Game";
 
 const canvas: HTMLCanvasElement = document.createElement("canvas");
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
-const MOVING_SPEED = 2;
-const width = 320;
-const height = 240;
 
-canvas.id = "game";
-canvas.width = width;
-canvas.height = height;
+canvas.id = "gameCanvas";
+canvas.width = CANVAS_BASE_WIDTH;
+canvas.height = CANVAS_BASE_HEIGHT;
 const div = document.createElement("div");
 div.appendChild(canvas);
 document.body.appendChild(canvas);
-
-const image = new Image();
-image.src = croissantImage;
-
-const player: pos = {
-  x: width / 2,
-  y: height / 2,
-};
 
 const inputState: InputState = {
   left: false,
@@ -28,21 +19,6 @@ const inputState: InputState = {
   up: false,
   down: false,
 };
-
-function tick(t: number) {
-  requestAnimationFrame(tick);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (inputState.left) player.x -= MOVING_SPEED;
-  if (inputState.right) player.x += MOVING_SPEED;
-  if (inputState.up) player.y -= MOVING_SPEED;
-  if (inputState.down) player.y += MOVING_SPEED;
-  player.x = clamp(player.x, 0, canvas.width - 16);
-  player.y = clamp(player.y, 0, canvas.height - 16);
-
-  ctx.drawImage(image, player.x, player.y);
-}
-
-requestAnimationFrame(tick);
 
 window.addEventListener("keydown", (e: KeyboardEvent) => {
   switch (e.key) {
@@ -78,14 +54,14 @@ window.addEventListener("keyup", (e: KeyboardEvent) => {
   }
 });
 
-interface InputState {
-  left: boolean;
-  right: boolean;
-  up: boolean;
-  down: boolean;
+let game = new Game();
+
+game.initialize();
+
+function tick(t: number) {
+  game.updateState(inputState);
+  game.draw(ctx);
+  requestAnimationFrame(tick);
 }
 
-interface pos {
-  x: number;
-  y: number;
-}
+requestAnimationFrame(tick);
