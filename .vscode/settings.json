@@ -1,0 +1,4 @@
+{
+  "prettier.printWidth": 160,
+  "typescript.preferences.importModuleSpecifier": "relative"
+}
