@@ -9,7 +9,7 @@ export class PlayerCharacter {
 
   projectileAngle = 45;
   angleMin = -45;
-  angleMax = 85;
+  angleMax = 45;
 
   xPosition = 0;
 

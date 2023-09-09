@@ -1,4 +1,4 @@
-import { CANVAS_BASE_HEIGHT } from "../constants";
+import { CANVAS_BASE_HEIGHT, GRAVITY } from "../constants";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
 
@@ -17,7 +17,6 @@ export class TrajectoryVisualizer {
     // external and constants
     let angleDeg = this.game.pc.projectileAngle;
     let velocity = 30;
-    let gravity = 10;
     let [x, y] = this.game.pc.computeCurrentCoordinates();
 
     // computed
@@ -32,14 +31,14 @@ export class TrajectoryVisualizer {
       time = time + inc;
       x = x - velocityX * inc;
       y = y + velocityY * inc;
-      velocityY = velocityY + gravity * inc * 0.1;
+      velocityY = velocityY + GRAVITY * inc * 0.1;
 
       if (y > CANVAS_BASE_HEIGHT) break;
     }
   }
 
   private drawPoint(ctx, x, y) {
-    ctx.strokeStyle = "green";
+    ctx.strokeStyle = "rgba(50, 238, 121, 0.74)";
     ctx.beginPath();
     let tempRadious = 2;
     ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);

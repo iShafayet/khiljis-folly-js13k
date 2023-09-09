@@ -18,6 +18,7 @@ const inputState: InputState = {
   right: false,
   up: false,
   down: false,
+  space: false,
 };
 
 window.addEventListener("keydown", (e: KeyboardEvent) => {
@@ -33,6 +34,10 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
       break;
     case "ArrowDown":
       inputState.down = true;
+      break;
+    case "Spacebar":
+    case " ":
+      inputState.space = true;
       break;
   }
 });
@@ -50,6 +55,10 @@ window.addEventListener("keyup", (e: KeyboardEvent) => {
       break;
     case "ArrowDown":
       inputState.down = false;
+      break;
+    case "Spacebar":
+    case " ":
+      inputState.space = false;
       break;
   }
 });
