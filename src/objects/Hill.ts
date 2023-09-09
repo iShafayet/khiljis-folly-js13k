@@ -1,6 +1,12 @@
 import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
+import { Game } from "./Game";
 
 export class Hill {
+  game: Game;
+  constructor(game: Game) {
+    this.game = game;
+  }
+  
   draw(ctx: CanvasRenderingContext2D) {
     let xoff = CANVAS_BASE_WIDTH - 600;
     let yoff = 180;

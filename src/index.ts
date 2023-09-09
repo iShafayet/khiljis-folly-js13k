@@ -57,6 +57,8 @@ window.addEventListener("keyup", (e: KeyboardEvent) => {
 let game = new Game();
 
 game.initialize();
+game.showMenu();
+game.startGame(); // debugging
 
 function tick(t: number) {
   game.updateState(inputState);

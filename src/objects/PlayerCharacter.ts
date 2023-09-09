@@ -1,6 +1,12 @@
 import { InputState } from "../InputState";
+import { Game } from "./Game";
 
 export class PlayerCharacter {
+  game: Game;
+  constructor(game: Game) {
+    this.game = game;
+  }
+
   xPosition = 0;
 
   xOffset = 1000;

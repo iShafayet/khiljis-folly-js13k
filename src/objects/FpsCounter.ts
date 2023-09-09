@@ -1,6 +1,12 @@
 import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
+import { Game } from "./Game";
 
 export class FpsCounter {
+  game: Game;
+  constructor(game: Game) {
+    this.game = game;
+  }
+  
   lastTimeStamp = Date.now();
   frameCount = 0;
   fps = 0;

@@ -1,6 +1,12 @@
 import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
+import { Game } from "./Game";
 
 export class Road {
+  game: Game;
+  constructor(game: Game) {
+    this.game = game;
+  }
+
   draw(ctx: CanvasRenderingContext2D) {
     ctx.strokeStyle = "black";
     ctx.beginPath();
