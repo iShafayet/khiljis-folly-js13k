@@ -14,6 +14,7 @@ import { MenuWithCredits } from "./MenuWithCredits";
 import { PlayerCharacter } from "./PlayerCharacter";
 import { Projectile } from "./Projectile";
 import { ProjectileFactory } from "./ProjectileFactory";
+import { ProjectileSwitcher } from "./ProjectileSwitcher";
 import { Road } from "./Road";
 import { ScoreKeeper } from "./ScoreKeeper";
 import { TrajectoryVisualizer } from "./TrajectoryVisualizer";
@@ -35,6 +36,7 @@ export class Game {
   cleanupService: CleanupService;
   menuWithCredits: MenuWithCredits;
   gameOverNotice: GameOverNotice;
+  projectileSwitcher: ProjectileSwitcher;
 
   time: number;
   trajectoryVisualizer: TrajectoryVisualizer;
@@ -56,6 +58,7 @@ export class Game {
     this.lifeKeeper = new LifeKeeper(this);
     this.menuWithCredits = new MenuWithCredits(this);
     this.gameOverNotice = new GameOverNotice(this);
+    this.projectileSwitcher = new ProjectileSwitcher(this);
 
     this.enemyList = [];
     this.projectileList = [];
@@ -88,6 +91,8 @@ export class Game {
       return;
     }
 
+    this.projectileSwitcher.updateState(inputState);
+
     this.pc.updateState(inputState);
 
     this.enemyFactory.updateState();
@@ -116,6 +121,8 @@ export class Game {
     this.hill.draw(ctx);
     this.road.draw(ctx);
     this.pc.draw(ctx);
+
+    this.projectileSwitcher.draw(ctx);
 
     this.trajectoryVisualizer.draw(ctx);
 

@@ -1,12 +1,13 @@
 import { InputState } from "../InputState";
 import { Game } from "./Game";
+import { GameState } from "./GameState";
 import { Projectile } from "./Projectile";
 import { ProjectileType } from "./ProjectileType";
 
 export class ProjectileFactory {
   game: Game;
 
-  PROJECTILE_CREATION_DELAY = 500;
+  PROJECTILE_CREATION_DELAY = 1000;
 
   timeLastSpawned: number;
 
@@ -20,10 +21,15 @@ export class ProjectileFactory {
   notifyGameStart() {}
 
   updateState(inputState: InputState) {
+    if (this.game.state !== GameState.STARTED) {
+      return;
+    }
+
     if (inputState.space) {
       let now = Date.now();
       if (now - this.timeLastSpawned > this.PROJECTILE_CREATION_DELAY) {
-        this.spawn(ProjectileType.BASIC);
+        let type = this.game.projectileSwitcher.selectedType;
+        this.spawn(type);
       }
     }
   }

@@ -4,4 +4,5 @@ export interface InputState {
   up: boolean;
   down: boolean;
   space: boolean;
+  f: boolean;
 }

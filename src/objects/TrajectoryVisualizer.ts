@@ -1,6 +1,8 @@
-import { CANVAS_BASE_HEIGHT, GRAVITY } from "../constants";
+import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY } from "../constants";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
+import { Projectile } from "./Projectile";
+import { ProjectileType } from "./ProjectileType";
 
 export class TrajectoryVisualizer {
   game: Game;
@@ -16,7 +18,10 @@ export class TrajectoryVisualizer {
 
     // external and constants
     let angleDeg = this.game.pc.projectileAngle;
-    let velocity = 30;
+
+    let type = this.game.projectileSwitcher.selectedType;
+    let velocity = Projectile.getVelocityOfProjectile(type);
+
     let [x, y] = this.game.pc.computeCurrentCoordinates();
 
     // computed

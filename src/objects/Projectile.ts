@@ -31,16 +31,8 @@ export class Projectile {
     this.game = game;
 
     this.type = type;
-    if (type == ProjectileType.BASIC) {
-      this.velocity = BASIC_PROJECTILE_VELOCITY;
-      this.damage = 2;
-    } else if (type == ProjectileType.HEAVY) {
-      this.velocity = BASIC_PROJECTILE_VELOCITY / 2;
-      this.damage = 4;
-    } else if (type == ProjectileType.FAST) {
-      this.velocity = BASIC_PROJECTILE_VELOCITY * 2;
-      this.damage = 1;
-    }
+    this.velocity = Projectile.getVelocityOfProjectile(type);
+    this.damage = Projectile.getDamageOfProjectile(type);
 
     [this.initX, this.initY] = this.game.pc.computeCurrentCoordinates();
     let initAngleDeg = this.game.pc.projectileAngle;
@@ -93,6 +85,8 @@ export class Projectile {
         enemy.isActive = false;
         this.game.cleanupService.registerEnemyForCleanup(enemy);
       }
+
+      break;
     }
   }
 
@@ -110,13 +104,13 @@ export class Projectile {
     }
 
     if (this.type == ProjectileType.BASIC) {
-      ctx.strokeStyle = "red";
+      ctx.fillStyle = "red";
     }
     if (this.type == ProjectileType.HEAVY) {
-      ctx.strokeStyle = "yellow";
+      ctx.fillStyle = "yellow";
     }
     if (this.type == ProjectileType.FAST) {
-      ctx.strokeStyle = "blue";
+      ctx.fillStyle = "blue";
     }
 
     let tempRadious = 9;
@@ -124,8 +118,28 @@ export class Projectile {
 
     ctx.beginPath();
     ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);
-    ctx.fillStyle = "rgba(50, 238, 121, 0.74)";
+    ctx.strokeStyle = "rgba(50, 238, 121, 0.74)";
     ctx.fill();
     ctx.stroke();
+  }
+
+  public static getVelocityOfProjectile(type: ProjectileType) {
+    if (type == ProjectileType.BASIC) {
+      return BASIC_PROJECTILE_VELOCITY;
+    } else if (type == ProjectileType.HEAVY) {
+      return BASIC_PROJECTILE_VELOCITY / 2;
+    } else if (type == ProjectileType.FAST) {
+      return BASIC_PROJECTILE_VELOCITY * 2;
+    }
+  }
+
+  public static getDamageOfProjectile(type: ProjectileType) {
+    if (type == ProjectileType.BASIC) {
+      return 2;
+    } else if (type == ProjectileType.HEAVY) {
+      return 4;
+    } else if (type == ProjectileType.FAST) {
+      return 1;
+    }
   }
 }
