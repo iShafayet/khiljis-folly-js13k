@@ -27,7 +27,7 @@ export class Enemy {
       this.speed = 2;
       this.health = 2;
     } else if (type == EnemyType.HEAVY) {
-      this.speed = 2;
+      this.speed = 1.5;
       this.health = 4;
     } else if (type == EnemyType.FAST) {
       this.speed = 4;
@@ -51,7 +51,7 @@ export class Enemy {
       this.game.cleanupService.registerEnemyForCleanup(this);
     }
 
-    this.x += this.speed * this.SPEED_FACTOR;
+    this.x += this.speed * this.SPEED_FACTOR * this.game.level.enemySpeedFactor;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

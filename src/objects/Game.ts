@@ -9,6 +9,7 @@ import { FpsCounter } from "./FpsCounter";
 import { GameOverNotice } from "./GameOverNotice";
 import { GameState } from "./GameState";
 import { Hill } from "./Hill";
+import { Level } from "./Level";
 import { LifeKeeper } from "./LifeKeeper";
 import { MenuWithCredits } from "./MenuWithCredits";
 import { PlayerCharacter } from "./PlayerCharacter";
@@ -39,6 +40,7 @@ export class Game {
   menuWithCredits: MenuWithCredits;
   gameOverNotice: GameOverNotice;
   projectileSwitcher: ProjectileSwitcher;
+  level: Level;
 
   time: number;
   trajectoryVisualizer: TrajectoryVisualizer;
@@ -61,6 +63,7 @@ export class Game {
     this.menuWithCredits = new MenuWithCredits(this);
     this.gameOverNotice = new GameOverNotice(this);
     this.projectileSwitcher = new ProjectileSwitcher(this);
+    this.level = new Level(this);
 
     this.enemyList = [];
     this.projectileList = [];
@@ -88,10 +91,12 @@ export class Game {
       inputState.space = false;
     }
 
-    if (this.state === GameState.ENDED && inputState.space) {
+    if (this.gameOverNotice.shouldResetGame(inputState)) {
       this.gameResetSubscriberFn();
       return;
     }
+
+    this.level.updateState();
 
     this.projectileSwitcher.updateState(inputState);
 
@@ -119,6 +124,8 @@ export class Game {
     this.menuWithCredits.draw(ctx);
 
     this.gameOverNotice.draw(ctx);
+
+    this.level.draw(ctx);
 
     this.hill.draw(ctx);
     this.road.draw(ctx);
@@ -148,6 +155,7 @@ export class Game {
 
   public triggerGameOver() {
     this.state = GameState.ENDED;
+    this.gameOverNotice.notifyGameOver();
   }
 
   public subscribeToGameReset(subscriberFn: Function) {

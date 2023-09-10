@@ -25,6 +25,6 @@ export class LifeKeeper {
     let text = "❤️".repeat(this.remainingLives);
     ctx.font = "normal 20px Courier New";
     ctx.fillStyle = "grey";
-    ctx.fillText(text, 20, 90);
+    ctx.fillText(text, 20, 120);
   }
 }

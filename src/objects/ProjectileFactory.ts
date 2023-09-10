@@ -7,7 +7,7 @@ import { ProjectileType } from "./ProjectileType";
 export class ProjectileFactory {
   game: Game;
 
-  PROJECTILE_CREATION_DELAY = 1000;
+  PROJECTILE_CREATION_DELAY = 800;
 
   timeLastSpawned: number;
 

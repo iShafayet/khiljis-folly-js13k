@@ -6,7 +6,7 @@ import { GameState } from "./GameState";
 export class EnemyFactory {
   game: Game;
 
-  SPAWNING_DELAY_MIN = 2000;
+  SPAWNING_DELAY_MIN = 1000;
   SPAWNING_DELAY_MAX = 4000;
 
   timeLastSpawned: number;
@@ -22,14 +22,14 @@ export class EnemyFactory {
   }
 
   notifyGameStart() {
-    this.nextSpawningDelay = this.SPAWNING_DELAY_MIN + Math.random() * (this.SPAWNING_DELAY_MAX - this.SPAWNING_DELAY_MIN);
+    this.setNextSpawningDelay();
   }
 
   updateState() {
     if (this.game.state !== GameState.STARTED) {
       return;
     }
-    
+
     let now = Date.now();
     if (now - this.timeLastSpawned > this.nextSpawningDelay) {
       let type = Math.floor(Math.random() * ENEMY_TYPE_COUNT);
@@ -41,6 +41,10 @@ export class EnemyFactory {
     let enemy = new Enemy(this.game, type);
     this.game.enemyList.push(enemy);
     this.timeLastSpawned = Date.now();
-    this.nextSpawningDelay = this.SPAWNING_DELAY_MIN + Math.random() * (this.SPAWNING_DELAY_MAX - this.SPAWNING_DELAY_MIN);
+    this.setNextSpawningDelay();
+  }
+
+  private setNextSpawningDelay() {
+    this.nextSpawningDelay = (this.SPAWNING_DELAY_MIN + Math.random() * (this.SPAWNING_DELAY_MAX - this.SPAWNING_DELAY_MIN)) / this.game.level.spawnRateFactor;
   }
 }

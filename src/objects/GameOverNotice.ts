@@ -1,11 +1,28 @@
+import { InputState } from "../InputState";
 import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
+
+export const GAME_RESET_OPTION_TIMEOUT = 3_000;
 
 export class GameOverNotice {
   game: Game;
   constructor(game: Game) {
     this.game = game;
+  }
+
+  gameEndedTimeStamp: number = 0;
+
+  notifyGameOver() {
+    this.gameEndedTimeStamp = Date.now();
+  }
+
+  private isGameResettable() {
+    return this.game.state === GameState.ENDED && Date.now() - this.gameEndedTimeStamp > GAME_RESET_OPTION_TIMEOUT;
+  }
+
+  shouldResetGame(inputState: InputState) {
+    return this.isGameResettable() && inputState.space;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -42,7 +59,7 @@ export class GameOverNotice {
       ctx.fillStyle = "#000000";
       ctx.fillText(text, 500, 320);
     }
-    {
+    if (this.isGameResettable()) {
       let text = "Press [SPACE] to return to the menu";
       ctx.font = "normal 20px Courier New";
       ctx.fillStyle = "#000000";
