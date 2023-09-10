@@ -58,10 +58,15 @@ export class GameOverNotice {
       ctx.fillText(text, 500, 320);
     }
     if (this.isGameResettable()) {
-      let text = "Press [SPACE] to return to the menu";
+      let text = "Press [SPACE / A ] to return to the menu";
       ctx.font = "normal 20px Courier New";
       ctx.fillStyle = "#000000";
       ctx.fillText(text, 430, 420);
+
+      ctx.beginPath();
+      ctx.strokeStyle = "#000000";
+      ctx.arc(616, 414, 13, 0, 2 * Math.PI);
+      ctx.stroke();
     }
   }
 }

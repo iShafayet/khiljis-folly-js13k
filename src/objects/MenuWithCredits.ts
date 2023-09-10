@@ -45,10 +45,15 @@ export class MenuWithCredits {
     }
 
     {
-      let text = "Press [SPACE] to get started";
+      let text = "Press [SPACE]/ A to get started";
       ctx.font = "normal 20px Courier New";
       ctx.fillStyle = "#808080";
       ctx.fillText(text, 460, 340);
+
+      ctx.beginPath();
+      ctx.strokeStyle = "#808080";
+      ctx.arc(646, 334, 12, 0, 2 * Math.PI);
+      ctx.stroke();
     }
 
     {

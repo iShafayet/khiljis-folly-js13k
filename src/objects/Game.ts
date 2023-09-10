@@ -2,6 +2,7 @@ import { InputState } from "../InputState";
 import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
 import { Backdrop } from "./Backdrop";
 import { CleanupService } from "./CleanupService";
+import { ControlTips } from "./ControlTips";
 import { Enemy } from "./Enemy";
 import { EnemyFactory } from "./EnemyFactory";
 import { EnemyType } from "./EnemyType";
@@ -41,6 +42,7 @@ export class Game {
   gameOverNotice: GameOverNotice;
   projectileSwitcher: ProjectileSwitcher;
   level: Level;
+  controlTips: ControlTips;
 
   time: number;
   trajectoryVisualizer: TrajectoryVisualizer;
@@ -63,6 +65,7 @@ export class Game {
     this.menuWithCredits = new MenuWithCredits(this);
     this.gameOverNotice = new GameOverNotice(this);
     this.projectileSwitcher = new ProjectileSwitcher(this);
+    this.controlTips = new ControlTips(this);
     this.level = new Level(this);
 
     this.enemyList = [];
@@ -145,6 +148,8 @@ export class Game {
 
     this.scoreKeeper.draw(ctx);
     this.lifeKeeper.draw(ctx);
+
+    this.controlTips.draw(ctx);
 
     this.fpsCounter.draw(ctx);
   }
