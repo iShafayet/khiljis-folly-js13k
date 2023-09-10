@@ -1,9 +1,7 @@
 import { InputState } from "../InputState";
-import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
+import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH, GAME_RESET_OPTION_TIMEOUT } from "../constants";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
-
-export const GAME_RESET_OPTION_TIMEOUT = 3_000;
 
 export class GameOverNotice {
   game: Game;

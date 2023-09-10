@@ -1,4 +1,5 @@
 import { InputState } from "../InputState";
+import { SUBSEQUENT_PROJECTILE_CREATION_DELAY } from "../constants";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
 import { Projectile } from "./Projectile";
@@ -6,8 +7,6 @@ import { ProjectileType } from "./ProjectileType";
 
 export class ProjectileFactory {
   game: Game;
-
-  PROJECTILE_CREATION_DELAY = 800;
 
   timeLastSpawned: number;
 
@@ -27,7 +26,7 @@ export class ProjectileFactory {
 
     if (inputState.space) {
       let now = Date.now();
-      if (now - this.timeLastSpawned > this.PROJECTILE_CREATION_DELAY) {
+      if (now - this.timeLastSpawned > SUBSEQUENT_PROJECTILE_CREATION_DELAY) {
         let type = this.game.projectileSwitcher.selectedType;
         this.spawn(type);
       }

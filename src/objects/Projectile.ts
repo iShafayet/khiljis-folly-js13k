@@ -14,8 +14,6 @@ export class Projectile {
   x: number;
   y: number;
 
-  SPEED_FACTOR: number = 1;
-
   // math
   initY: number;
   initX: number;

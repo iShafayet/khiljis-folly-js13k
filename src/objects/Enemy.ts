@@ -1,4 +1,4 @@
-import { CANVAS_BASE_WIDTH } from "../constants";
+import { CANVAS_BASE_WIDTH, ENEMY_SPEED_FACTOR } from "../constants";
 import { EnemyType } from "./EnemyType";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
@@ -12,8 +12,6 @@ export class Enemy {
 
   x: number;
   y: number;
-
-  SPEED_FACTOR: number = 0.25;
 
   hitboxRadious: number = 8;
 
@@ -51,7 +49,7 @@ export class Enemy {
       this.game.cleanupService.registerEnemyForCleanup(this);
     }
 
-    this.x += this.speed * this.SPEED_FACTOR * this.game.level.enemySpeedFactor;
+    this.x += this.speed * ENEMY_SPEED_FACTOR * this.game.level.enemySpeedFactor;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

@@ -1,3 +1,4 @@
+import { ENEMY_SPAWNING_DELAY_MAX, ENEMY_SPAWNING_DELAY_MIN } from "../constants";
 import { Enemy } from "./Enemy";
 import { ENEMY_TYPE_COUNT, EnemyType } from "./EnemyType";
 import { Game } from "./Game";
@@ -5,9 +6,6 @@ import { GameState } from "./GameState";
 
 export class EnemyFactory {
   game: Game;
-
-  SPAWNING_DELAY_MIN = 1000;
-  SPAWNING_DELAY_MAX = 4000;
 
   timeLastSpawned: number;
   nextSpawningDelay: number;
@@ -45,6 +43,7 @@ export class EnemyFactory {
   }
 
   private setNextSpawningDelay() {
-    this.nextSpawningDelay = (this.SPAWNING_DELAY_MIN + Math.random() * (this.SPAWNING_DELAY_MAX - this.SPAWNING_DELAY_MIN)) / this.game.level.spawnRateFactor;
+    this.nextSpawningDelay =
+      (ENEMY_SPAWNING_DELAY_MIN + Math.random() * (ENEMY_SPAWNING_DELAY_MAX - ENEMY_SPAWNING_DELAY_MIN)) / this.game.level.spawnRateFactor;
   }
 }
