@@ -15,12 +15,16 @@ export class LifeKeeper {
     if (this.remainingLives > 0) {
       this.remainingLives -= 1;
     }
+
+    if (this.remainingLives === 0){
+      this.game.triggerGameOver();
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     let text = "❤️".repeat(this.remainingLives);
     ctx.font = "normal 20px Courier New";
     ctx.fillStyle = "grey";
-    ctx.fillText(text, 20, 60);
+    ctx.fillText(text, 20, 90);
   }
 }

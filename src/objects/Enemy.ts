@@ -45,7 +45,7 @@ export class Enemy {
       return;
     }
 
-    if (this.x > CANVAS_BASE_WIDTH - 30){
+    if (this.x > CANVAS_BASE_WIDTH - 30) {
       this.isActive = false;
       this.game.lifeKeeper.reduceLife();
       this.game.cleanupService.registerEnemyForCleanup(this);
@@ -55,7 +55,7 @@ export class Enemy {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    if (!this.isActive){
+    if (!this.isActive) {
       return;
     }
 

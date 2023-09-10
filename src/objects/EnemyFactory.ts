@@ -1,6 +1,7 @@
 import { Enemy } from "./Enemy";
 import { ENEMY_TYPE_COUNT, EnemyType } from "./EnemyType";
 import { Game } from "./Game";
+import { GameState } from "./GameState";
 
 export class EnemyFactory {
   game: Game;
@@ -25,9 +26,13 @@ export class EnemyFactory {
   }
 
   updateState() {
+    if (this.game.state !== GameState.STARTED) {
+      return;
+    }
+    
     let now = Date.now();
     if (now - this.timeLastSpawned > this.nextSpawningDelay) {
-      let type = Math.floor(Math.random() * (ENEMY_TYPE_COUNT));
+      let type = Math.floor(Math.random() * ENEMY_TYPE_COUNT);
       this.spawn(type as EnemyType);
     }
   }

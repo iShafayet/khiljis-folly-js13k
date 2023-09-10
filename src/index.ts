@@ -63,11 +63,21 @@ window.addEventListener("keyup", (e: KeyboardEvent) => {
   }
 });
 
-let game = new Game();
+let game: Game;
 
-game.initialize();
-game.showMenu();
-game.startGame(); // debugging
+function createNewGame() {
+  game = new Game();
+  game.initialize();
+  game.showMenu();
+
+  game.subscribeToGameReset(() => {
+    createNewGame();
+  });
+}
+
+createNewGame();
+
+// game.startGame(); // debugging
 
 function tick(t: number) {
   game.updateState(inputState);

@@ -1,5 +1,6 @@
 import { InputState } from "../InputState";
 import { Game } from "./Game";
+import { GameState } from "./GameState";
 
 export class PlayerCharacter {
   game: Game;
@@ -32,6 +33,10 @@ export class PlayerCharacter {
   }
 
   updateState(inputState: InputState) {
+    if (this.game.state !== GameState.STARTED) {
+      return;
+    }
+    
     if (inputState.left) {
       if (this.xPosition > this.xMin) {
         this.xPosition -= 1;

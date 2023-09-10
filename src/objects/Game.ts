@@ -6,9 +6,11 @@ import { Enemy } from "./Enemy";
 import { EnemyFactory } from "./EnemyFactory";
 import { EnemyType } from "./EnemyType";
 import { FpsCounter } from "./FpsCounter";
+import { GameOverNotice } from "./GameOverNotice";
 import { GameState } from "./GameState";
 import { Hill } from "./Hill";
 import { LifeKeeper } from "./LifeKeeper";
+import { MenuWithCredits } from "./MenuWithCredits";
 import { PlayerCharacter } from "./PlayerCharacter";
 import { Projectile } from "./Projectile";
 import { ProjectileFactory } from "./ProjectileFactory";
@@ -31,9 +33,12 @@ export class Game {
   scoreKeeper: ScoreKeeper;
   lifeKeeper: LifeKeeper;
   cleanupService: CleanupService;
+  menuWithCredits: MenuWithCredits;
+  gameOverNotice: GameOverNotice;
 
   time: number;
   trajectoryVisualizer: TrajectoryVisualizer;
+  gameResetSubscriberFn: Function;
 
   public initialize() {
     this.updateTime();
@@ -49,10 +54,13 @@ export class Game {
     this.scoreKeeper = new ScoreKeeper(this);
     this.cleanupService = new CleanupService(this);
     this.lifeKeeper = new LifeKeeper(this);
+    this.menuWithCredits = new MenuWithCredits(this);
+    this.gameOverNotice = new GameOverNotice(this);
 
     this.enemyList = [];
     this.projectileList = [];
 
+    this.scoreKeeper.initialize();
     this.backdrop.initialize();
     this.pc.initialize();
   }
@@ -70,6 +78,16 @@ export class Game {
   }
 
   public updateState(inputState: InputState) {
+    if (this.state === GameState.MENU && inputState.space) {
+      this.state = GameState.STARTED;
+      inputState.space = false;
+    }
+
+    if (this.state === GameState.ENDED && inputState.space) {
+      this.gameResetSubscriberFn();
+      return;
+    }
+
     this.pc.updateState(inputState);
 
     this.enemyFactory.updateState();
@@ -90,6 +108,10 @@ export class Game {
     ctx.clearRect(0, 0, CANVAS_BASE_WIDTH, CANVAS_BASE_HEIGHT);
 
     this.backdrop.draw(ctx);
+
+    this.menuWithCredits.draw(ctx);
+
+    this.gameOverNotice.draw(ctx);
 
     this.hill.draw(ctx);
     this.road.draw(ctx);
@@ -113,5 +135,13 @@ export class Game {
 
   private updateTime() {
     this.time = Date.now();
+  }
+
+  public triggerGameOver() {
+    this.state = GameState.ENDED;
+  }
+
+  public subscribeToGameReset(subscriberFn: Function) {
+    this.gameResetSubscriberFn = subscriberFn;
   }
 }

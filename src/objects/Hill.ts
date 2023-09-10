@@ -30,4 +30,5 @@ export class Hill {
     ctx.bezierCurveTo(541 + xoff, 270 + yoff, 599 + xoff, 270 + yoff, 584 + xoff, 270 + yoff);
     ctx.stroke();
   }
+  
 }
