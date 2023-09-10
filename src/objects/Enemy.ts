@@ -15,7 +15,7 @@ export class Enemy {
 
   SPEED_FACTOR: number = 0.25;
 
-  hitboxRadious: number = 6;
+  hitboxRadious: number = 8;
 
   isActive: boolean;
 
@@ -78,6 +78,13 @@ export class Enemy {
     ctx.stroke();
 
     this.drawHealth(ctx);
+
+    if (this.game.inDebugMode) {
+      ctx.beginPath();
+      ctx.arc(x, y, this.hitboxRadious, 0, 2 * Math.PI);
+      ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+      ctx.stroke();
+    }
   }
 
   private drawHealth(ctx: CanvasRenderingContext2D) {

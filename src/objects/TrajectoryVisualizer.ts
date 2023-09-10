@@ -1,4 +1,4 @@
-import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY } from "../constants";
+import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_VISUALIZATION_INCREMENT } from "../constants";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
 import { Projectile } from "./Projectile";
@@ -29,9 +29,11 @@ export class TrajectoryVisualizer {
     let velocityX = velocity * Math.cos(angle);
     let velocityY = velocity * Math.sin(angle) * -1;
 
-    let inc = 1;
-    for (let time = 0; time < 300; time++) {
-      this.drawPoint(ctx, x, y);
+    let inc = PROJECTILE_VISUALIZATION_INCREMENT;
+    let maxTimes = 300;
+    for (let time = 0; time < maxTimes; time++) {
+      let opacity = (maxTimes - time * 3) / maxTimes;
+      this.drawPoint(ctx, x, y, opacity);
 
       time = time + inc;
       x = x - velocityX * inc;
@@ -39,11 +41,13 @@ export class TrajectoryVisualizer {
       velocityY = velocityY + GRAVITY * inc * 0.1;
 
       if (y > CANVAS_BASE_HEIGHT - 30) break;
+
+      // if (x < 600) break;
     }
   }
 
-  private drawPoint(ctx: CanvasRenderingContext2D, x, y) {
-    ctx.fillStyle = "rgba(67, 99, 79, .9)";
+  private drawPoint(ctx: CanvasRenderingContext2D, x, y, transparency) {
+    ctx.fillStyle = `rgba(67, 99, 79, ${transparency})`;
     ctx.beginPath();
     let tempRadious = 2;
     ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);

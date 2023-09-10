@@ -1,4 +1,4 @@
-import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY } from "../constants";
+import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_MOVEMENT_INCREMENT, PROJECTILE_VISUALIZATION_INCREMENT } from "../constants";
 import { doCirclesCollide } from "../math";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
@@ -52,7 +52,7 @@ export class Projectile {
       return;
     }
 
-    let inc = 1;
+    let inc = PROJECTILE_MOVEMENT_INCREMENT;
 
     this.x = this.x - this.velocityX * inc;
     this.y = this.y + this.velocityY * inc;
@@ -121,6 +121,13 @@ export class Projectile {
     ctx.strokeStyle = "rgba(50, 238, 121, 0.74)";
     ctx.fill();
     ctx.stroke();
+
+    if (this.game.inDebugMode) {
+      ctx.beginPath();
+      ctx.arc(x, y, this.hitboxRadious, 0, 2 * Math.PI);
+      ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+      ctx.stroke();
+    }
   }
 
   public static getVelocityOfProjectile(type: ProjectileType) {
