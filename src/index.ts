@@ -36,6 +36,7 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
     case "ArrowDown":
       inputState.down = true;
       break;
+    case "F":
     case "f":
       inputState.f = true;
       break;
@@ -60,6 +61,7 @@ window.addEventListener("keyup", (e: KeyboardEvent) => {
     case "ArrowDown":
       inputState.down = false;
       break;
+    case "F":
     case "f":
       inputState.f = false;
       break;
