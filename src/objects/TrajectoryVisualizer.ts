@@ -38,7 +38,7 @@ export class TrajectoryVisualizer {
       y = y + velocityY * inc;
       velocityY = velocityY + GRAVITY * inc * 0.1;
 
-      if (y > CANVAS_BASE_HEIGHT) break;
+      if (y > CANVAS_BASE_HEIGHT - 30) break;
     }
   }
 
