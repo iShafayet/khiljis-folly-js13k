@@ -34,7 +34,7 @@ export class ScoreKeeper {
     }
     {
       let text = "SCORE " + this.getFormattedCurrentScore();
-      ctx.font = "bold  20px Courier New";
+      ctx.font = "bold 20px Courier New";
       ctx.fillStyle = "#818589";
       ctx.fillText(text, 20, 36);
     }

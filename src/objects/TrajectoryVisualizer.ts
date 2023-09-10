@@ -37,11 +37,11 @@ export class TrajectoryVisualizer {
     }
   }
 
-  private drawPoint(ctx, x, y) {
-    ctx.strokeStyle = "rgba(33, 25, 19, 0.93)";
+  private drawPoint(ctx: CanvasRenderingContext2D, x, y) {
+    ctx.fillStyle = "rgba(67, 99, 79, .9)";
     ctx.beginPath();
     let tempRadious = 2;
     ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);
-    ctx.stroke();
+    ctx.fill();
   }
 }
