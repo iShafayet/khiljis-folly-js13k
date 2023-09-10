@@ -1,4 +1,4 @@
-export interface InputState {
+export interface KeyboardInputState {
   left: boolean;
   right: boolean;
   up: boolean;

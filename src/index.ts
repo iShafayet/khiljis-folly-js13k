@@ -1,5 +1,10 @@
 import { InputState } from "./InputState";
 import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "./constants";
+import { GamepadInputState } from "./input/GamepadInputState";
+import { KeyboardInputState } from "./input/KeyboardInputState";
+import { combineInputStates } from "./input/combineInput";
+import { collectGamepadButtonPresses } from "./input/gamepad";
+import { setupKeyboardEventDetection } from "./input/keyboard";
 
 import { Game } from "./objects/Game";
 
@@ -22,55 +27,25 @@ const inputState: InputState = {
   f: false,
 };
 
-window.addEventListener("keydown", (e: KeyboardEvent) => {
-  switch (e.key) {
-    case "ArrowLeft":
-      inputState.left = true;
-      break;
-    case "ArrowRight":
-      inputState.right = true;
-      break;
-    case "ArrowUp":
-      inputState.up = true;
-      break;
-    case "ArrowDown":
-      inputState.down = true;
-      break;
-    case "F":
-    case "f":
-      inputState.f = true;
-      break;
-    case "Spacebar":
-    case " ":
-      inputState.space = true;
-      break;
-  }
-});
+const keyboardInputState: KeyboardInputState = {
+  left: false,
+  right: false,
+  up: false,
+  down: false,
+  space: false,
+  f: false,
+};
 
-window.addEventListener("keyup", (e: KeyboardEvent) => {
-  switch (e.key) {
-    case "ArrowLeft":
-      inputState.left = false;
-      break;
-    case "ArrowRight":
-      inputState.right = false;
-      break;
-    case "ArrowUp":
-      inputState.up = false;
-      break;
-    case "ArrowDown":
-      inputState.down = false;
-      break;
-    case "F":
-    case "f":
-      inputState.f = false;
-      break;
-    case "Spacebar":
-    case " ":
-      inputState.space = false;
-      break;
-  }
-});
+const gamepadInputState: GamepadInputState = {
+  gamepadUp: false,
+  gamepadDown: false,
+  gamepadLeft: false,
+  gamepadRight: false,
+  gamepadA: false,
+  gamepadB: false,
+};
+
+setupKeyboardEventDetection(keyboardInputState);
 
 let game: Game;
 
@@ -89,6 +64,10 @@ createNewGame();
 // game.startGame(); // debugging
 
 function tick(t: number) {
+  collectGamepadButtonPresses(gamepadInputState);
+
+  combineInputStates(inputState, keyboardInputState, gamepadInputState);
+
   game.updateState(inputState);
   game.draw(ctx);
   requestAnimationFrame(tick);
