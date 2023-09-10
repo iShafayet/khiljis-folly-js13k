@@ -52,7 +52,7 @@ export class Projectile {
       return;
     }
 
-    let inc = PROJECTILE_MOVEMENT_INCREMENT;
+    let inc = Projectile.getIncrementOfProjectile(this.type);
 
     this.x = this.x - this.velocityX * inc;
     this.y = this.y + this.velocityY * inc;
@@ -134,9 +134,19 @@ export class Projectile {
     if (type == ProjectileType.BASIC) {
       return BASIC_PROJECTILE_VELOCITY;
     } else if (type == ProjectileType.HEAVY) {
-      return BASIC_PROJECTILE_VELOCITY / 2;
+      return BASIC_PROJECTILE_VELOCITY;
     } else if (type == ProjectileType.FAST) {
-      return BASIC_PROJECTILE_VELOCITY * 2;
+      return BASIC_PROJECTILE_VELOCITY;
+    }
+  }
+
+  public static getIncrementOfProjectile(type: ProjectileType) {
+    if (type == ProjectileType.BASIC) {
+      return PROJECTILE_MOVEMENT_INCREMENT;
+    } else if (type == ProjectileType.HEAVY) {
+      return PROJECTILE_MOVEMENT_INCREMENT / 2;
+    } else if (type == ProjectileType.FAST) {
+      return PROJECTILE_MOVEMENT_INCREMENT * 2;
     }
   }
 
