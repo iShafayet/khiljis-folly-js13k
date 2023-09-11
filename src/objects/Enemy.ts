@@ -28,7 +28,7 @@ export class Enemy {
   totalFrames: number
   currentFrame: number
 
-  hitboxRadious: number = 8;
+  hitboxRadius: number;
 
   isActive: boolean;
 
@@ -38,27 +38,30 @@ export class Enemy {
 
     this.type = type;
     if (type == EnemyType.BASIC) {
+      this.y = 670;
       this.speed = 2;
       this.health = 2;
-      this.currentFrame = 0;
       this.totalFrames = 8;
+      this.hitboxRadius = 13;
     } else if (type == EnemyType.HEAVY) {
+      this.y = 673;
       this.speed = 1.5;
       this.health = 4;
-      this.currentFrame = 0;
       this.totalFrames = 4;
+      this.hitboxRadius = 20;
     } else if (type == EnemyType.FAST) {
+      this.y = 670;
       this.speed = 4;
       this.health = 1;
-      this.currentFrame = 0;
       this.totalFrames = 7;
+      this.hitboxRadius = 13;
     }
 
+    this.currentFrame = 0;
+
     this.x = 30;
-    this.y = 653;
 
     this.isActive = true;
-
   }
 
   updateState() {
@@ -80,36 +83,38 @@ export class Enemy {
       return;
     }
 
-    if (this.type == EnemyType.BASIC) {
-      let frame = Math.floor(this.currentFrame)
-      let pieceWidth = khiljiBasicImage.width / this.totalFrames;
-      let pieceHeight = khiljiBasicImage.height;
+    let image: HTMLImageElement;
 
-      ctx.drawImage(khiljiBasicImage, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
+    if (this.type == EnemyType.BASIC) {
+      image = khiljiBasicImage;
       this.currentFrame += 0.25;
     } else if (this.type == EnemyType.FAST) {
-      let frame = Math.floor(this.currentFrame)
-      let pieceWidth = khiljiFastImage.width / this.totalFrames;
-      let pieceHeight = khiljiFastImage.height;
-
-      ctx.drawImage(khiljiFastImage, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
-
+      image = khiljiFastImage;
       this.currentFrame += 0.25;
 
     } else if (this.type == EnemyType.HEAVY) {
-      let frame = Math.floor(this.currentFrame)
-      let pieceWidth = khiljiHeavyImage.width / this.totalFrames;
-      let pieceHeight = khiljiHeavyImage.height;
-
-      ctx.drawImage(khiljiHeavyImage, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
-
+      image = khiljiHeavyImage
       this.currentFrame += 0.15;
     }
+
+    let frame = Math.floor(this.currentFrame)
+    let pieceWidth = image.width / this.totalFrames;
+    let pieceHeight = image.height;
+
+    ctx.drawImage(image, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x - pieceWidth / 2, this.y - pieceHeight / 2, pieceWidth, pieceHeight);
+
 
     this.drawHealth(ctx);
 
     if (this.currentFrame >= this.totalFrames) {
       this.currentFrame = 0;
+    }
+
+    if (this.game.inDebugMode) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.hitboxRadius, 0, 2 * Math.PI);
+      ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+      ctx.stroke();
     }
   }
 
@@ -134,7 +139,7 @@ export class Enemy {
 
     if (this.game.inDebugMode) {
       ctx.beginPath();
-      ctx.arc(x, y, this.hitboxRadious, 0, 2 * Math.PI);
+      ctx.arc(x, y, this.hitboxRadius, 0, 2 * Math.PI);
       ctx.strokeStyle = "rgba(0, 0, 0, 1)";
       ctx.stroke();
     }
@@ -146,7 +151,7 @@ export class Enemy {
       ctx.beginPath();
 
       let x = this.x + i * 7 - (this.health / 2) * 7;
-      let y = this.y - 20;
+      let y = this.y - 35;
 
       ctx.fillRect(x, y, 6, 6);
 

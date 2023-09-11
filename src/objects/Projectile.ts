@@ -69,7 +69,7 @@ export class Projectile {
   private detectCollision() {
     let enemyList = this.game.enemyList;
     for (let enemy of enemyList) {
-      let doCollides = doCirclesCollide(this.x, this.y, this.hitboxRadious, enemy.x, enemy.y, enemy.hitboxRadious);
+      let doCollides = doCirclesCollide(this.x, this.y, this.hitboxRadious, enemy.x, enemy.y, enemy.hitboxRadius);
       if (!doCollides) {
         continue;
       }
