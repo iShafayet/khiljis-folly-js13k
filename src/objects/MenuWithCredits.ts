@@ -38,7 +38,7 @@ export class MenuWithCredits {
       ctx.fillText(text, 280, 220);
     }
     {
-      let text = "Khilj's Folly";
+      let text = "Khilji's Folly";
       ctx.font = "normal 32px Courier New";
       ctx.fillStyle = "#808080";
       ctx.fillText(text, 280, 270);
