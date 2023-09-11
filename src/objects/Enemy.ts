@@ -6,7 +6,7 @@ import khiljiBasicSpriteSheetFile from "../../assets/khiljiBasic.png";
 import khiljiFastSpriteSheetFile from "../../assets/khiljiFast.png";
 import khiljiHeavySpriteSheetFile from "../../assets/khiljiHeavy.png";
 
-const khiljiBasicImage = new Image()
+const khiljiBasicImage = new Image();
 khiljiBasicImage.src = khiljiBasicSpriteSheetFile;
 
 const khiljiFastImage = new Image();

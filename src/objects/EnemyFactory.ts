@@ -1,8 +1,8 @@
-import { ENEMY_SPAWNING_DELAY_MAX, ENEMY_SPAWNING_DELAY_MIN } from "../constants";
-import { Enemy } from "./Enemy";
-import { ENEMY_TYPE_COUNT, EnemyType } from "./EnemyType";
-import { Game } from "./Game";
-import { GameState } from "./GameState";
+import {ENEMY_SPAWNING_DELAY_MAX, ENEMY_SPAWNING_DELAY_MIN} from "../constants";
+import {Enemy} from "./Enemy";
+import {ENEMY_TYPE_COUNT, EnemyType} from "./EnemyType";
+import {Game} from "./Game";
+import {GameState} from "./GameState";
 
 export class EnemyFactory {
   game: Game;
