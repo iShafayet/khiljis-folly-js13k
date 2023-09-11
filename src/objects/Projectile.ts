@@ -1,8 +1,9 @@
-import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_MOVEMENT_INCREMENT, PROJECTILE_VISUALIZATION_INCREMENT } from "../constants";
-import { doCirclesCollide } from "../math";
-import { Game } from "./Game";
-import { GameState } from "./GameState";
-import { ProjectileType } from "./ProjectileType";
+import {BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_MOVEMENT_INCREMENT} from "../constants";
+import {doCirclesCollide} from "../math";
+import {Game} from "./Game";
+import {GameState} from "./GameState";
+import {ProjectileType} from "./ProjectileType";
+import {PlayerCharacterState} from "./PlayerCharacterState";
 
 export class Projectile {
   game: Game;
@@ -43,6 +44,8 @@ export class Projectile {
     this.y = this.initY;
 
     this.isActive = true;
+
+    this.game.pc.state = PlayerCharacterState.SHOOTING;
   }
 
   updateState() {

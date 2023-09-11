@@ -1,9 +1,9 @@
-import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
-import { Game } from "./Game";
-import { GameState } from "./GameState";
+import {Game} from "./Game";
+import {GameState} from "./GameState";
 
 export class ControlTips {
   game: Game;
+
   constructor(game: Game) {
     this.game = game;
   }
