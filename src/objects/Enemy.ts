@@ -4,12 +4,16 @@ import {Game} from "./Game";
 import {GameState} from "./GameState";
 import khiljiBasicSpriteSheetFile from "../../assets/khiljiBasic.png";
 import khiljiFastSpriteSheetFile from "../../assets/khiljiFast.png";
+import khiljiHeavySpriteSheetFile from "../../assets/khiljiHeavy.png";
 
 const khiljiBasicImage = new Image()
 khiljiBasicImage.src = khiljiBasicSpriteSheetFile;
 
 const khiljiFastImage = new Image();
 khiljiFastImage.src = khiljiFastSpriteSheetFile;
+
+const khiljiHeavyImage = new Image();
+khiljiHeavyImage.src = khiljiHeavySpriteSheetFile;
 
 export class Enemy {
   game: Game;
@@ -42,7 +46,7 @@ export class Enemy {
       this.speed = 1.5;
       this.health = 4;
       this.currentFrame = 0;
-      this.totalFrames = 7;
+      this.totalFrames = 4;
     } else if (type == EnemyType.FAST) {
       this.speed = 4;
       this.health = 1;
@@ -77,30 +81,36 @@ export class Enemy {
     }
 
     if (this.type == EnemyType.BASIC) {
+      let frame = Math.floor(this.currentFrame)
       let pieceWidth = khiljiBasicImage.width / this.totalFrames;
       let pieceHeight = khiljiBasicImage.height;
 
-      ctx.drawImage(khiljiBasicImage, this.currentFrame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
-
+      ctx.drawImage(khiljiBasicImage, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
+      this.currentFrame += 0.25;
     } else if (this.type == EnemyType.FAST) {
+      let frame = Math.floor(this.currentFrame)
       let pieceWidth = khiljiFastImage.width / this.totalFrames;
       let pieceHeight = khiljiFastImage.height;
 
-      ctx.drawImage(khiljiFastImage, this.currentFrame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
-    } else {
-      //TODO: remove testDraw with a sprite
-      this.testDraw(ctx);
+      ctx.drawImage(khiljiFastImage, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
+
+      this.currentFrame += 0.25;
+
+    } else if (this.type == EnemyType.HEAVY) {
+      let frame = Math.floor(this.currentFrame)
+      let pieceWidth = khiljiHeavyImage.width / this.totalFrames;
+      let pieceHeight = khiljiHeavyImage.height;
+
+      ctx.drawImage(khiljiHeavyImage, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x, this.y, pieceWidth, pieceHeight);
+
+      this.currentFrame += 0.15;
     }
 
     this.drawHealth(ctx);
 
-
-    //TODO: smoothen out this
-    this.currentFrame++;
-    if (this.currentFrame == this.totalFrames) {
+    if (this.currentFrame >= this.totalFrames) {
       this.currentFrame = 0;
     }
-
   }
 
   private testDraw(ctx: CanvasRenderingContext2D) {
