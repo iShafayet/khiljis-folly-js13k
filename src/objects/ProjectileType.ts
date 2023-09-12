@@ -1,6 +1,6 @@
 export enum ProjectileType {
-  BASIC,
   FAST,
+  BASIC,
   HEAVY,
 }
 

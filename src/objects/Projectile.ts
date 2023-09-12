@@ -1,9 +1,10 @@
-import {BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_MOVEMENT_INCREMENT} from "../constants";
-import {doCirclesCollide} from "../math";
-import {Game} from "./Game";
-import {GameState} from "./GameState";
-import {ProjectileType} from "./ProjectileType";
-import {PlayerCharacterState} from "./PlayerCharacterState";
+import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_MOVEMENT_INCREMENT } from "../constants";
+import { doCirclesCollide } from "../lib/math";
+import { Game } from "./Game";
+import { GameState } from "./GameState";
+import { ProjectileType } from "./ProjectileType";
+import { PlayerCharacterState } from "./PlayerCharacterState";
+import { Particle, drawFireEffect } from "../lib/fire-effect";
 
 export class Projectile {
   game: Game;
@@ -25,6 +26,8 @@ export class Projectile {
   isActive: boolean;
 
   hitboxRadious: number = 12;
+
+  particles: Particle[] = [];
 
   constructor(game: Game, type: ProjectileType) {
     this.game = game;
@@ -104,28 +107,11 @@ export class Projectile {
       return;
     }
 
-    if (this.type == ProjectileType.BASIC) {
-      ctx.fillStyle = "red";
-    }
-    if (this.type == ProjectileType.HEAVY) {
-      ctx.fillStyle = "yellow";
-    }
-    if (this.type == ProjectileType.FAST) {
-      ctx.fillStyle = "blue";
-    }
-
-    let tempRadious = 9;
-    let [x, y] = [this.x, this.y];
-
-    ctx.beginPath();
-    ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);
-    ctx.strokeStyle = "rgba(50, 238, 121, 0.74)";
-    ctx.fill();
-    ctx.stroke();
+    this.drawFire(ctx);
 
     if (this.game.inDebugMode) {
       ctx.beginPath();
-      ctx.arc(x, y, this.hitboxRadious, 0, 2 * Math.PI);
+      ctx.arc(this.x, this.y, this.hitboxRadious, 0, 2 * Math.PI);
       ctx.strokeStyle = "rgba(0, 0, 0, 1)";
       ctx.stroke();
     }
@@ -159,5 +145,11 @@ export class Projectile {
     } else if (type == ProjectileType.FAST) {
       return 1;
     }
+  }
+
+  private drawFire(ctx: CanvasRenderingContext2D) {
+    let size = this.damage * 2;
+    let maxAge = 20;
+    drawFireEffect(ctx, this.x, this.y, size, maxAge, this.particles);
   }
 }

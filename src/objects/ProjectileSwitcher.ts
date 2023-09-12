@@ -1,8 +1,10 @@
 import { InputState } from "../InputState";
 import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY } from "../constants";
-import { doCirclesCollide } from "../math";
+import { Particle, drawFireEffect } from "../lib/fire-effect";
+import { doCirclesCollide } from "../lib/math";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
+import { Projectile } from "./Projectile";
 import { PROJECTILE_TYPE_COUNT, ProjectileType } from "./ProjectileType";
 
 export class ProjectileSwitcher {
@@ -10,9 +12,17 @@ export class ProjectileSwitcher {
 
   selectedType: ProjectileType;
 
+  particleListMap: Record<string, Particle[]> = {};
+
   constructor(game: Game) {
     this.game = game;
     this.selectedType = ProjectileType.BASIC;
+
+    this.particleListMap = {
+      [ProjectileType.BASIC]: [],
+      [ProjectileType.FAST]: [],
+      [ProjectileType.HEAVY]: [],
+    };
   }
 
   updateState(inputState: InputState) {
@@ -36,34 +46,22 @@ export class ProjectileSwitcher {
       return;
     }
 
-    this.drawSampleProjectile(ctx, 1080, 370, ProjectileType.BASIC);
-    this.drawSampleProjectile(ctx, 1120, 370, ProjectileType.FAST);
-    this.drawSampleProjectile(ctx, 1160, 370, ProjectileType.HEAVY);
+    this.drawSampleProjectile(ctx, 40 + 1080, 320, ProjectileType.FAST);
+    this.drawSampleProjectile(ctx, 40 + 1120, 320, ProjectileType.BASIC);
+    this.drawSampleProjectile(ctx, 40 + 1160, 320, ProjectileType.HEAVY);
   }
 
   drawSampleProjectile(ctx: CanvasRenderingContext2D, x, y, type: ProjectileType) {
-    if (type == ProjectileType.BASIC) {
-      ctx.fillStyle = "red";
-    }
-    if (type == ProjectileType.HEAVY) {
-      ctx.fillStyle = "yellow";
-    }
-    if (type == ProjectileType.FAST) {
-      ctx.fillStyle = "blue";
-    }
+    let size = Projectile.getDamageOfProjectile(type) * 2;
+    let maxAge = 40;
+    drawFireEffect(ctx, x, y, size, maxAge, this.particleListMap[type]);
 
-    if (type == this.selectedType) {
-      ctx.strokeStyle = "green";
-    } else {
-      ctx.strokeStyle = "transparent";
+    if (this.selectedType === type) {
+      ctx.beginPath();
+      ctx.moveTo(x, y + 16);
+      ctx.lineTo(x - 10, y + 32);
+      ctx.lineTo(x + 10, y + 32);
+      ctx.fill();
     }
-
-    let tempRadious = 9;
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.stroke();
-    ctx.lineWidth = 1;
   }
 }
