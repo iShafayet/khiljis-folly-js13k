@@ -6,7 +6,7 @@ import monkRunningSpriteSheetFile from "../../assets/monkRunning.png"
 import monkShootingSpriteSheetFile from "../../assets/monkShooting.png"
 
 import {PlayerCharacterState} from "./PlayerCharacterState";
-import {mirrorImageVertical} from "../utility";
+import {mirrorImageVertical} from "../lib/utility";
 
 const monkIdleImage = new Image();
 monkIdleImage.src = monkIdleSpriteSheetFile;
@@ -48,7 +48,7 @@ export class PlayerCharacter {
   xMin = 0;
   xMax = 200;
 
-  yOffset = 550;
+  yOffset = 530;
   yMin = 0;
   yMax = 90;
 
@@ -150,7 +150,8 @@ export class PlayerCharacter {
     let pieceWidth = image.width / totalFrame;
     let pieceHeight = image.height;
 
-    ctx.drawImage(image, frame * pieceWidth, 0, pieceWidth, pieceHeight, x - pieceWidth / 2, y - pieceHeight / 2, pieceWidth, pieceHeight);
+    const destinationScale = 1.5
+    ctx.drawImage(image, frame * pieceWidth, 0, pieceWidth, pieceHeight, x - pieceWidth / 2, y - pieceHeight / 2, pieceWidth * destinationScale, pieceHeight * destinationScale);
 
     console.log(this.state)
   }
