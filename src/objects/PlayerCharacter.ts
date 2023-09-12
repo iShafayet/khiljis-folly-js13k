@@ -159,7 +159,5 @@ export class PlayerCharacter {
       pieceWidth * destinationScale,
       pieceHeight * destinationScale
     );
-
-    console.log(this.state);
   }
 }
