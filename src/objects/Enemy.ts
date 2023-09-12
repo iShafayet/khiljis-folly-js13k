@@ -1,7 +1,7 @@
-import {CANVAS_BASE_WIDTH, ENEMY_SPEED_FACTOR} from "../constants";
-import {EnemyType} from "./EnemyType";
-import {Game} from "./Game";
-import {GameState} from "./GameState";
+import { CANVAS_BASE_WIDTH, ENEMY_SPEED_FACTOR } from "../constants";
+import { EnemyType } from "./EnemyType";
+import { Game } from "./Game";
+import { GameState } from "./GameState";
 import khiljiBasicSpriteSheetFile from "../../assets/khiljiBasic.png";
 import khiljiFastSpriteSheetFile from "../../assets/khiljiFast.png";
 import khiljiHeavySpriteSheetFile from "../../assets/khiljiHeavy.png";
@@ -25,13 +25,12 @@ export class Enemy {
   x: number;
   y: number;
 
-  totalFrames: number
-  currentFrame: number
+  totalFrames: number;
+  currentFrame: number;
 
   hitboxRadius: number;
 
   isActive: boolean;
-
 
   constructor(game: Game, type: EnemyType) {
     this.game = game;
@@ -87,22 +86,20 @@ export class Enemy {
 
     if (this.type == EnemyType.BASIC) {
       image = khiljiBasicImage;
-      this.currentFrame += 0.20;
+      this.currentFrame += 0.2;
     } else if (this.type == EnemyType.FAST) {
       image = khiljiFastImage;
       this.currentFrame += 0.15;
-
     } else if (this.type == EnemyType.HEAVY) {
-      image = khiljiHeavyImage
+      image = khiljiHeavyImage;
       this.currentFrame += 0.15;
     }
 
-    let frame = Math.floor(this.currentFrame)
+    let frame = Math.floor(this.currentFrame);
     let pieceWidth = image.width / this.totalFrames;
     let pieceHeight = image.height;
 
     ctx.drawImage(image, frame * pieceWidth, 0, pieceWidth, pieceHeight, this.x - pieceWidth / 2, this.y - pieceHeight / 2, pieceWidth, pieceHeight);
-
 
     this.drawHealth(ctx);
 
@@ -113,33 +110,6 @@ export class Enemy {
     if (this.game.inDebugMode) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.hitboxRadius, 0, 2 * Math.PI);
-      ctx.strokeStyle = "rgba(0, 0, 0, 1)";
-      ctx.stroke();
-    }
-  }
-
-  private testDraw(ctx: CanvasRenderingContext2D) {
-    if (this.type == EnemyType.BASIC) {
-      ctx.strokeStyle = "red";
-    }
-    if (this.type == EnemyType.HEAVY) {
-      ctx.strokeStyle = "yellow";
-    }
-    if (this.type == EnemyType.FAST) {
-      ctx.strokeStyle = "blue";
-    }
-
-    ctx.beginPath();
-
-    let [x, y] = [this.x, this.y];
-
-    let tempRadious = 6;
-    ctx.arc(x, y, tempRadious, 0, 2 * Math.PI);
-    ctx.stroke();
-
-    if (this.game.inDebugMode) {
-      ctx.beginPath();
-      ctx.arc(x, y, this.hitboxRadius, 0, 2 * Math.PI);
       ctx.strokeStyle = "rgba(0, 0, 0, 1)";
       ctx.stroke();
     }

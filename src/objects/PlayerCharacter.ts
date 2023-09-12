@@ -1,12 +1,12 @@
-import {InputState} from "../InputState";
-import {Game} from "./Game";
-import {GameState} from "./GameState";
+import { InputState } from "../InputState";
+import { Game } from "./Game";
+import { GameState } from "./GameState";
 import monkIdleSpriteSheetFile from "../../assets/monkIdle.png";
-import monkRunningSpriteSheetFile from "../../assets/monkRunning.png"
-import monkShootingSpriteSheetFile from "../../assets/monkShooting.png"
+import monkRunningSpriteSheetFile from "../../assets/monkRunning.png";
+import monkShootingSpriteSheetFile from "../../assets/monkShooting.png";
 
-import {PlayerCharacterState} from "./PlayerCharacterState";
-import {mirrorImageVertical} from "../lib/utility";
+import { PlayerCharacterState } from "./PlayerCharacterState";
+import { mirrorImageVertical } from "../lib/utility";
 
 const monkIdleImage = new Image();
 monkIdleImage.src = monkIdleSpriteSheetFile;
@@ -92,7 +92,7 @@ export class PlayerCharacter {
       this.state = PlayerCharacterState.IDLE;
     }
     if (inputState.left) {
-      this.state = PlayerCharacterState.MOVING_LEFT
+      this.state = PlayerCharacterState.MOVING_LEFT;
     }
     if (inputState.right) {
       this.state = PlayerCharacterState.MOVING_RIGHT;
@@ -108,7 +108,7 @@ export class PlayerCharacter {
 
     if (this.state == PlayerCharacterState.IDLE) {
       image = monkIdleImage;
-      this.idleStateCurrentFrame += 0.30;
+      this.idleStateCurrentFrame += 0.3;
 
       if (this.idleStateCurrentFrame >= this.idleStateTotalFrame) {
         this.idleStateCurrentFrame = 0;
@@ -116,9 +116,7 @@ export class PlayerCharacter {
 
       currentFrame = this.idleStateCurrentFrame;
       totalFrame = this.idleStateTotalFrame;
-
     } else if (this.state == PlayerCharacterState.MOVING_LEFT || this.state == PlayerCharacterState.MOVING_RIGHT) {
-
       image = monkRunningImage;
       this.runningStateCurrentFrame += 0.25;
 
@@ -130,11 +128,11 @@ export class PlayerCharacter {
       totalFrame = this.runningStateTotalFrame;
 
       if (this.state == PlayerCharacterState.MOVING_LEFT) {
-        image = mirrorImageVertical(image)
+        image = mirrorImageVertical(image);
       }
     } else if (this.state == PlayerCharacterState.SHOOTING) {
       image = monkShootingImage;
-      this.shootingStateCurrentFrame += 0.20;
+      this.shootingStateCurrentFrame += 0.2;
 
       if (this.shootingStateCurrentFrame >= this.shootingStateTotalFrame) {
         this.shootingStateCurrentFrame = 0;
@@ -145,14 +143,23 @@ export class PlayerCharacter {
       totalFrame = this.shootingStateTotalFrame;
     }
 
-
-    let frame = Math.floor(currentFrame)
+    let frame = Math.floor(currentFrame);
     let pieceWidth = image.width / totalFrame;
     let pieceHeight = image.height;
 
-    const destinationScale = 1.5
-    ctx.drawImage(image, frame * pieceWidth, 0, pieceWidth, pieceHeight, x - pieceWidth / 2, y - pieceHeight / 2, pieceWidth * destinationScale, pieceHeight * destinationScale);
+    const destinationScale = 1.5;
+    ctx.drawImage(
+      image,
+      frame * pieceWidth,
+      0,
+      pieceWidth,
+      pieceHeight,
+      x - pieceWidth / 2,
+      y - pieceHeight / 2,
+      pieceWidth * destinationScale,
+      pieceHeight * destinationScale
+    );
 
-    console.log(this.state)
+    console.log(this.state);
   }
 }

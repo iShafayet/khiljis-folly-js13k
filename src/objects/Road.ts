@@ -1,4 +1,3 @@
-import { CANVAS_BASE_HEIGHT, CANVAS_BASE_WIDTH } from "../constants";
 import { Game } from "./Game";
 
 export class Road {

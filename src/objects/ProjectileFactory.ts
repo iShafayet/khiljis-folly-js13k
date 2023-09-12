@@ -15,10 +15,6 @@ export class ProjectileFactory {
     this.timeLastSpawned = 0;
   }
 
-  notifyMenuShown() {}
-
-  notifyGameStart() {}
-
   updateState(inputState: InputState) {
     if (this.game.state !== GameState.STARTED) {
       return;

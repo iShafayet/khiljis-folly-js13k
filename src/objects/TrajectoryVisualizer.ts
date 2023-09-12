@@ -1,8 +1,7 @@
-import { BASIC_PROJECTILE_VELOCITY, CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_VISUALIZATION_INCREMENT } from "../constants";
+import { CANVAS_BASE_HEIGHT, GRAVITY, PROJECTILE_VISUALIZATION_INCREMENT } from "../constants";
 import { Game } from "./Game";
 import { GameState } from "./GameState";
 import { Projectile } from "./Projectile";
-import { ProjectileType } from "./ProjectileType";
 
 export class TrajectoryVisualizer {
   game: Game;

@@ -19,7 +19,6 @@ export class ControlTips {
       ctx.fillStyle = "#808080";
       ctx.textAlign = "end";
       ctx.fillText(text, 1220, 70);
-      ctx.textAlign = "start";
     }
     {
       let text = "[Left/Right Arrow]/[DPad ← / → ] to move your Monk";
@@ -27,7 +26,6 @@ export class ControlTips {
       ctx.fillStyle = "#808080";
       ctx.textAlign = "end";
       ctx.fillText(text, 1220, 100);
-      ctx.textAlign = "start";
     }
     {
       let text = "[Up/Down Arrow]/[DPad ↑ / ↓ ] to adjust aim";
@@ -35,7 +33,6 @@ export class ControlTips {
       ctx.fillStyle = "#808080";
       ctx.textAlign = "end";
       ctx.fillText(text, 1220, 130);
-      ctx.textAlign = "start";
     }
     {
       let text = "[F]/[ B ] to cycle through ammo types";
@@ -43,7 +40,6 @@ export class ControlTips {
       ctx.fillStyle = "#808080";
       ctx.textAlign = "end";
       ctx.fillText(text, 1220, 160);
-      ctx.textAlign = "start";
     }
     {
       let text = "[SPACE]/[ A ] to shoot!";
@@ -51,8 +47,8 @@ export class ControlTips {
       ctx.fillStyle = "#808080";
       ctx.textAlign = "end";
       ctx.fillText(text, 1220, 190);
-      ctx.textAlign = "start";
     }
+    ctx.textAlign = "start";
 
     {
       let points = [

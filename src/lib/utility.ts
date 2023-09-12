@@ -1,9 +1,9 @@
 export function mirrorImageVertical(image: HTMLImageElement): HTMLImageElement {
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
 
   if (!context) {
-    console.error('Could not create 2D context');
+    console.error("Could not create 2D context");
     return image; // Return the original image if canvas creation fails
   }
 

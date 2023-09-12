@@ -79,13 +79,11 @@ export class Game {
   public showMenu() {
     this.state = GameState.MENU;
     this.enemyFactory.notifyMenuShown();
-    this.projectileFactory.notifyMenuShown();
   }
 
   public startGame() {
     this.state = GameState.STARTED;
     this.enemyFactory.notifyGameStart();
-    this.projectileFactory.notifyGameStart();
   }
 
   public updateState(inputState: InputState) {

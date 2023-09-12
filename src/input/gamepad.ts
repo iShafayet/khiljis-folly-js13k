@@ -26,32 +26,22 @@ function populateButtonPresses(inputState: GamepadInputState) {
   inputState.gamepadLeft = false;
   inputState.gamepadRight = false;
 
-  // console.log(gamepad.buttons);
-
   if (buttonPressed(gamepad.buttons[0])) {
-    console.log("gamepadA");
     inputState.gamepadA = true;
   }
-
   if (buttonPressed(gamepad.buttons[1])) {
-    console.log("gamepadB");
     inputState.gamepadB = true;
   }
-
   if (buttonPressed(gamepad.buttons[12])) {
-    console.log("gamepadUp");
     inputState.gamepadUp = true;
   }
   if (buttonPressed(gamepad.buttons[13])) {
-    console.log("gamepadDown");
     inputState.gamepadDown = true;
   }
   if (buttonPressed(gamepad.buttons[14])) {
-    console.log("gamepadLeft");
     inputState.gamepadLeft = true;
   }
   if (buttonPressed(gamepad.buttons[15])) {
-    console.log("gamepadRight");
     inputState.gamepadRight = true;
   }
 }

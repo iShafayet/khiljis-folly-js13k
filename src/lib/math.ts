@@ -1,7 +1,3 @@
-export function clamp(num: number, min: number, max: number): number {
-  return Math.min(Math.max(num, min), max);
-}
-
 export function doCirclesCollide(c1x: number, c1y: number, r1: number, c2x: number, c2y: number, r2: number) {
   var a;
   var x;
