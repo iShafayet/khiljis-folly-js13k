@@ -84,11 +84,12 @@ export class Game {
   public startGame() {
     this.state = GameState.STARTED;
     this.enemyFactory.notifyGameStart();
+    this.fpsCounter.notifyGameStart();
   }
 
   public updateState(inputState: InputState) {
     if (this.state === GameState.MENU && inputState.space) {
-      this.state = GameState.STARTED;
+      this.startGame();
       inputState.space = false;
     }
 

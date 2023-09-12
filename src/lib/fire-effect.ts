@@ -1,3 +1,5 @@
+(window as any).__OPTMIZE_PERFORMANCE = false;
+
 export class Particle {
   x: any;
   y: any;
@@ -19,7 +21,12 @@ export function drawFireEffect(ctx: CanvasRenderingContext2D, fireAnchorX: numbe
   ctx.globalCompositeOperation = "lighter";
 
   const speed = 1;
-  const spawnCount = 10;
+  let spawnCount = 10;
+
+  if ((window as any).__OPTMIZE_PERFORMANCE) {
+    maxAge /= 2;
+    spawnCount = 2;
+  }
 
   for (let i = 0; i < spawnCount; i++) {
     //Adds a particle at the mouse position, with random horizontal and vertical speeds
@@ -43,7 +50,7 @@ export function drawFireEffect(ctx: CanvasRenderingContext2D, fireAnchorX: numbe
 
     ctx.beginPath();
     //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
-    ctx.arc(particles[i].x, particles[i].y, ((maxAge - particles[i].life) / maxAge) * (size / 2) + size / 2, 0, 2 * Math.PI);
+    ctx.arc(particles[i].x, particles[i].y, Math.max(0,((maxAge - particles[i].life) / maxAge) * (size / 2) + size / 2), 0, 2 * Math.PI);
     ctx.fill();
 
     //Move the particle based on its horizontal and vertical speeds
