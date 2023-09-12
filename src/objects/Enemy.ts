@@ -38,10 +38,10 @@ export class Enemy {
 
     this.type = type;
     if (type == EnemyType.BASIC) {
-      this.y = 670;
+      this.y = 672;
       this.speed = 2;
       this.health = 2;
-      this.totalFrames = 8;
+      this.totalFrames = 4;
       this.hitboxRadius = 13;
     } else if (type == EnemyType.HEAVY) {
       this.y = 673;
@@ -53,7 +53,7 @@ export class Enemy {
       this.y = 670;
       this.speed = 4;
       this.health = 1;
-      this.totalFrames = 7;
+      this.totalFrames = 4;
       this.hitboxRadius = 13;
     }
 
@@ -87,10 +87,10 @@ export class Enemy {
 
     if (this.type == EnemyType.BASIC) {
       image = khiljiBasicImage;
-      this.currentFrame += 0.25;
+      this.currentFrame += 0.20;
     } else if (this.type == EnemyType.FAST) {
       image = khiljiFastImage;
-      this.currentFrame += 0.25;
+      this.currentFrame += 0.15;
 
     } else if (this.type == EnemyType.HEAVY) {
       image = khiljiHeavyImage
