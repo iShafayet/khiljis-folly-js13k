@@ -24,7 +24,7 @@ import { TrajectoryVisualizer } from "./TrajectoryVisualizer";
 export class Game {
   state = GameState.IDLE;
 
-  inDebugMode: boolean = true;
+  inDebugMode: boolean = false;
 
   hill: Hill;
   pc: PlayerCharacter;

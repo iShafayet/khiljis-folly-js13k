@@ -61,8 +61,6 @@ function createNewGame() {
 
 createNewGame();
 
-// game.startGame(); // debugging
-
 function tick(t: number) {
   collectGamepadButtonPresses(gamepadInputState);
 
