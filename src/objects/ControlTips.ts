@@ -1,5 +1,5 @@
-import {Game} from "./Game";
-import {GameState} from "./GameState";
+import { Game } from "./Game";
+import { GameState } from "./GameState";
 
 export class ControlTips {
   game: Game;
@@ -30,7 +30,7 @@ export class ControlTips {
       ctx.textAlign = "start";
     }
     {
-      let text = "[Up/Down Arrow]/[DPad ↑ / ↓ ] to move arrow target";
+      let text = "[Up/Down Arrow]/[DPad ↑ / ↓ ] to adjust aim";
       ctx.font = "normal 16px Courier New";
       ctx.fillStyle = "#808080";
       ctx.textAlign = "end";
@@ -38,7 +38,7 @@ export class ControlTips {
       ctx.textAlign = "start";
     }
     {
-      let text = "[F]/[ B ] to cycle throw arrow types";
+      let text = "[F]/[ B ] to cycle through ammo types";
       ctx.font = "normal 16px Courier New";
       ctx.fillStyle = "#808080";
       ctx.textAlign = "end";
@@ -58,9 +58,9 @@ export class ControlTips {
       let points = [
         [985, 98],
         [1025, 98],
-        [956, 127],
-        [994, 127],
-        [936, 156],
+        [1023, 127],
+        [1062, 127],
+        [927, 156],
         [1100, 186],
       ];
       for (let point of points) {
