@@ -33,16 +33,15 @@ export class TrajectoryVisualizer {
     let maxTimes = 300;
     for (let time = 0; time < maxTimes; time++) {
       let opacity = (maxTimes - time * 3) / maxTimes;
-      this.drawPoint(ctx, x, y, opacity);
-
+      if (time > 1) {
+        this.drawPoint(ctx, x, y, opacity);
+      }
       time = time + inc;
       x = x - velocityX * inc;
       y = y + velocityY * inc;
       velocityY = velocityY + GRAVITY * inc * 0.1;
 
       if (y > CANVAS_BASE_HEIGHT - 30) break;
-
-      // if (x < 600) break;
     }
   }
 
