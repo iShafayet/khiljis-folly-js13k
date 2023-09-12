@@ -32,7 +32,7 @@ export class GameOverNotice {
       ctx.fillRect(300, 140, 970 - 300, 360);
     }
     {
-      let text = "You let the wrong ones in!";
+      let text = "That's not how it happened!";
       ctx.font = "normal 32px Courier New";
       ctx.fillStyle = "#000000";
       ctx.fillText(text, 390, 240);
