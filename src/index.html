@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=no,viewport-fit=cover,maximum-scale=1.0, user-scalable=no" />
-    <title>Khilji's Folly - A historic tower defense game for js13k 2023</title>
+    <title>Khilji's Folly - A historic hill defense game for js13k 2023</title>
     <style>
       html,
       body {
@@ -33,5 +33,27 @@
       }
     </style>
   </head>
-  <body></body>
+  <body>
+    <script type="text/javascript">
+      function playAudioFx(which) {
+        let notes = [[15], [, , , , 14, 14, 12], [, , 3, 4, 4, 5, 6, 7]];
+        let context = new AudioContext();
+        let gain = context.createGain();
+
+        for (let i in notes[which]) {
+          if (notes[which][i]) {
+            let osc = context.createOscillator();
+            osc.connect(gain);
+            gain.connect(context.destination);
+            osc.start(i * 0.12);
+            osc.frequency.setValueAtTime(100 * 1.06 ** (13 - notes[which][i]), i * 0.12);
+            osc.type = "triangle";
+            gain.gain.setValueAtTime(1, i * 0.12);
+            gain.gain.setTargetAtTime(0.0001, i * 0.12 + 0.1, 0.005);
+            osc.stop(i * 0.12 + 0.11);
+          }
+        }
+      }
+    </script>
+  </body>
 </html>
