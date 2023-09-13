@@ -13,6 +13,8 @@ export class GameOverNotice {
 
   notifyGameOver() {
     this.gameEndedTimeStamp = Date.now();
+
+    playAudioFx(2);
   }
 
   private isGameResettable() {

@@ -90,6 +90,8 @@ export class Projectile {
         this.game.cleanupService.registerEnemyForCleanup(enemy);
       }
 
+      playAudioFx(1);
+
       break;
     }
   }

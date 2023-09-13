@@ -33,5 +33,7 @@ export class ProjectileFactory {
     let projectile = new Projectile(this.game, type);
     this.game.projectileList.push(projectile);
     this.timeLastSpawned = Date.now();
+
+    playAudioFx(0);
   }
 }
