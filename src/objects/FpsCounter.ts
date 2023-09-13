@@ -3,7 +3,7 @@ import { Game } from "./Game";
 
 const FPS_COUNT_FOR_AVERAGE = 60;
 const PERFORMANCE_TRACKING_THRESHOLD = 10_000;
-const LOW_FPS_THRESHOLD = 60;
+const LOW_FPS_THRESHOLD = 30;
 
 export class FpsCounter {
   game: Game;
