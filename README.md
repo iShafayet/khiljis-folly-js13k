@@ -37,6 +37,11 @@ Controls:
 - Sprites by chierit (https://chierit.itch.io)
 - TypeScript js13k starter kit (https://github.com/mtmckenna/js13k-webpack-typescript-starter-party)
 
+# Cut Content
+
+We had to skip our original soundtrack made specifically to the game due to space constraint. You can still enjoy it here [cut-content](https://github.com/iShafayet/khiljis-folly-js13k/cut-content)
+
+
 # LICENSE
 
 GNU General Public License v3.0
