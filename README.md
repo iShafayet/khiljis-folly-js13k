@@ -39,7 +39,7 @@ Controls:
 
 # Cut Content
 
-We had to skip our original soundtrack made specifically to the game due to space constraint. You can still enjoy it here [cut-content](https://github.com/iShafayet/khiljis-folly-js13k/cut-content)
+We had to skip our original soundtrack made specifically to the game due to space constraint. You can still enjoy it here [cut-content](https://github.com/iShafayet/khiljis-folly-js13k/tree/main/cut-content)
 
 
 # LICENSE
